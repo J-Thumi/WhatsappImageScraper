@@ -1,6 +1,6 @@
 # Kufai WhatsApp Menu Extractor
 
-A Node.js tool that connects to WhatsApp Web, reads image messages from a specified chat, and extracts them — along with their captions — into a structured JSON file ready to import into Kufai's Menu Builder.
+A Node.js tool that connects to WhatsApp Web, reads image messages from a specified chat, and extracts them, along with their captions, into a structured JSON file ready to import into Kufai's Menu Builder.
 
 ---
 
@@ -124,8 +124,8 @@ kufai_output/                        ← OUTPUT_DIR
 
 **1. Clone or download the repository**
 ```bash
-git clone <your-repo-url>
-cd <repo-folder>
+git clone https://github.com/J-Thumi/WhatsappImageScraper
+cd WhatsappImageScraper
 ```
 
 **2. Install Node dependencies**
@@ -165,7 +165,7 @@ TARGET_NUMBER=254712345678 CONTACT_NAME="My Chat" node main.js
 
 | Variable | Default | Required | Description |
 |---|---|---|---|
-| `TARGET_NUMBER` | `254750410008` | **Yes** | Phone number of the WhatsApp contact or group to scrape. Digits only — no `+`, spaces, or `@c.us` suffix. |
+| `TARGET_NUMBER` | `254750410008` | **Yes** | Phone number of the WhatsApp contact or group to scrape. Digits only, no `+`, spaces, or `@c.us` suffix. |
 | `CONTACT_NAME` | `Kungu Meru WhatsApp` | **Yes** | Display name of the chat. Used as fallback if the number lookup fails. |
 | `PORT` | `3000` | No | Port for the Express status server. |
 | `FETCH_TARGET` | `120` | No | How many messages to load from chat history. Increase for longer catalogues. |
@@ -191,7 +191,7 @@ node main.js
 
 **2. Scan the QR code**
 
-A QR code will appear in the terminal. Open WhatsApp on your phone, go to **Linked Devices → Link a Device**, and scan the code. You only need to do this once — the session is saved in `.wwebjs_auth/` and reused on subsequent runs.
+A QR code will appear in the terminal. Open WhatsApp on your phone, go to **Linked Devices → Link a Device**, and scan the code. You only need to do this once, the session is saved in `.wwebjs_auth/` and reused on subsequent runs.
 
 **3. Wait for extraction to complete**
 
@@ -206,7 +206,7 @@ Starting scroll-based message loading...
    ...
 Image messages found: 34
 34/34   33   1
-Done — Processed: 33  |  Skipped: 1
+Done, Processed: 33  |  Skipped: 1
 /home/user/project/kufai_output
    • menu_items.json        ← import into Kufai's Menu Builder
    • menu_items_paths.json  ← paths-only reference
@@ -254,9 +254,9 @@ The server also serves the `OUTPUT_DIR` as static files, so images can be access
 ## Troubleshooting
 
 **QR code not appearing**
-Make sure Chrome/Chromium is installed. If `HEADLESS=true` is set but you need to scan a QR code, set it to `false` first. The QR code is only needed once — after that, the session is cached.
+Make sure Chrome/Chromium is installed. If `HEADLESS=true` is set but you need to scan a QR code, set it to `false` first. The QR code is only needed once, after that, the session is cached.
 
-**`Auth failed — delete .wwebjs_auth and retry`**
+**`Auth failed, delete .wwebjs_auth and retry`**
 Delete the `.wwebjs_auth/` folder in the project root and re-run. You'll need to scan the QR code again.
 
 **`Chat not found`**
@@ -266,7 +266,7 @@ Double-check `TARGET_NUMBER` (digits only, no `+` or spaces) and `CONTACT_NAME`.
 Increase `FETCH_TARGET` and/or `MAX_SCROLL_ATTEMPTS`. On slow connections, also increase `SCROLL_PAUSE_MS` and `PLAY_WAIT_MS` to give WhatsApp Web more time to load content between scrolls.
 
 **Images are skipping (`⏭` count is high)**
-Some messages may have expired media or network errors during download. These are logged with ` Skipped:` and the error reason. Re-running is safe — it will re-attempt all images each run.
+Some messages may have expired media or network errors during download. These are logged with ` Skipped:` and the error reason. Re-running is safe, it will re-attempt all images each run.
 
 **Chrome crashes or `--no-sandbox` error**
 This typically happens on Linux servers. The script already passes `--no-sandbox` and `--disable-setuid-sandbox` by default, which covers most server environments.
